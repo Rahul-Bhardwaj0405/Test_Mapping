@@ -1,0 +1,171 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merchant Credit and Debit Details</title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'admin/css/mprcredit.css' %}">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card shadow">
+            <form id="post-form" method="post" name="Form1" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="card-body">
+                    <div class="card card-info">
+                        <div class="card-header">
+                            <h3 class="card-title">UPDATE MERCHANT CREDIT AND DEBIT DETAILS</h3>
+                        </div>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label for="start_date">Settled Date From</label>
+                                    <input type="date" name="start_date" class="form-control" id="start_date" placeholder="YYYY-MM-DD">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="end_date">Settled Date To</label>
+                                    <input type="date" name="end_date" class="form-control" id="end_date" placeholder="YYYY-MM-DD">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="bank_name">Bank Name</label>
+                                    <select name="Bank" id="bank_name" class="form-control">
+                                        <option selected>IPAY APP</option>
+                                        <option selected>IPAY WEB</option>
+                                        <option selected>IPAY AIR</option>
+                                        <option selected>HDFC PG</option>
+                                        <option selected>ICICI PG</option>
+                                        <option selected>ICICI MPP</option>
+                                        <option selected>INDUS NETBANK</option>
+                                        <option selected>AMEX PG</option>
+                                        <option selected>AMEX MPP</option>
+                                        <option selected>INDUS MPP</option>
+                                        <option selected>SBI NET BANK</option>
+                                        <option selected>BOB NET BANK</option>
+                                        <option selected>FEDERAL NET BANK</option>
+                                        <option selected>KARUR VYSYA BANK</option>
+                                        <option selected>KARNATAKA NET BANK</option>
+                                        <option selected>HDFC MPP APP</option>
+                                        <option selected>YES NET BANK</option>
+                                        <option selected>ICICI NET BANK</option>
+                                        <option selected>SOUTH INDIAN</option>
+                                        <option selected>SBI NEPAL WEB</option>
+                                        <option selected>INDIAN NET BANK</option>
+                                        <option selected>CBI NET BANK</option>
+                                        <option selected>KOTAK RUPAY PG</option>
+                                        <option selected>KOTAK NET BANK</option>
+                                        <option selected >PNB NET BANK</option>
+                                        <option selected>AIR SBI NET BANK</option>
+                                        <option selected>AIR ICICI</option>
+                                        <option selected>AIR HDFC PG</option>
+                                        <option selected>Select</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="merchant_name">Merchant Name</label>
+                                    <select name="Merchant" id="merchant_name" class="form-control">
+                                        <option selected>IRCTC WEB</option>
+                                        <option selected>IRCTC APP</option>
+                                        <option selected>IRCTC iMudra New</option>
+                                        <option selected>IRCTC AIR</option>
+                                        <option selected>IRCTC Tourism</option>
+                                        <option selected>Select</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="txn_type">TXN Type</label>
+                                    <select name="txn_type" id="txn_type" class="form-control">
+                                        <option selected>SALE</option>
+                                        <option selected >REFUND</option>
+                                        <option selected>NET SETTLED</option>
+                                        <option selected>Select</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container-fluid mt-3">
+                            <div class="row">
+                                <div id="excel1" class="form-group col-md-4">
+                                    <button id="button-a" type="submit" class="btn btn-info btn-lg" name="button1" onclick="return OnButton1();">SUBMIT</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Table with Credit/Debit Date input field inside the <th> -->
+    <div class="container-fluid">
+        <div class="row">
+            <table class="table">
+                <h4>Pending Record</h4>
+                <thead class="thead-light">
+                    <tr>
+                        <th>Date</th>
+                        <th>Sale Txn</th>
+                        <th>Sale Amount</th>
+                        <th>Refund Txn</th>
+                        <th>Refund Amount</th>
+                        <th>Net Txn</th>
+                        <th>Net Amount</th>
+                        <th>Credit/Debit Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in row %}
+                    <tr>
+                        <td>{{order.TXN_DATE}}</td>
+                        <td>{{order.SALE_TOTAL}}</td>
+                        <td>{{order.SALE_AMOUNT|floatformat:"2"}}</td>
+                        <td>{{order.REFUND_TOTAL}}</td>
+                        <td>{{order.REFUND_AMOUNT|floatformat:"2"}}</td>
+                        <td>{{order.NET_TOTAL}}</td>
+                        <td>{{order.NET_AMOUNT|floatformat:"2"}}</td>
+                        <td><input type="date" name="credit_date_{{ forloop.counter }}" 
+                          class="form-control" 
+                          value="{{ order.CREDIT_DATE|date:'Y-m-d' }}"></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <table class="table">
+                <h4>Updated Records</h4>
+                <thead class="thead-light">
+                    <tr>
+                        <th>Date</th>
+                        <th>Sale Txn</th>
+                        <th>Sale Amount</th>
+                        <th>Refund Txn</th>
+                        <th>Refund Amount</th>
+                        <th>Net Txn</th>
+                        <th>Net Amount</th>
+                        <th>Credit/Debit Date</th>
+                </thead>
+                <tbody>
+                    {% for order1 in row1 %}
+                    <tr>
+                        <td>{{order1.TXN_DATE}}</td>
+                        <td>{{order1.SALE_TOTAL}}</td>
+                        <td>{{order1.SALE_AMOUNT|floatformat:"2"}}</td>
+                        <td>{{order1.REFUND_TOTAL}}</td>
+                        <td>{{order1.REFUND_AMOUNT|floatformat:"2"}}</td>
+                        <td>{{order1.NET_TOTAL}}</td>
+                        <td>{{order1.NET_AMOUNT|floatformat:"2"}}</td>
+                        <td>{{order1.CREDIT_DATE}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operation Status</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-info text-white">
+            <h3>Operation Status</h3>
+        </div>
+        <div class="card-body">
+            {% if msg %}
+                <div class="alert alert-success">
+                    <h4>{{ msg }}</h4>
+                </div>
+            {% elif error %}
+                <div class="alert alert-danger">
+                    <h4>{{ error }}</h4>
+                </div>
+            {% else %}
+                <div class="alert alert-warning">
+                    <h4>No message to display.</h4>
+                </div>
+            {% endif %}
+        </div>
+        <div class="card-footer">
+            <a href="{% url 'dbupload' %}" class="btn btn-primary">Return to Home</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

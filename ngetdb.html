@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download NGET DB Data</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-4">
+  <form method="post" action="{% url 'dbupload' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="card">
+      <div class="card-header bg-info text-white">
+        <h3 class="card-title">DOWNLOAD NGET DB DATA</h3>
+      </div>
+      <div class="card-body">
+
+        <!-- From Date -->
+        <div class="form-group">
+          <label for="start_date">From Date:</label>
+          <input type="date" id="start_date" name="start_date" class="form-control" required>
+        </div>
+
+        <!-- To Date -->
+        <div class="form-group">
+          <label for="end_date">To Date:</label>
+          <input type="date" id="end_date" name="end_date" class="form-control" required>
+        </div>
+
+        <!-- Bank Options -->
+        <div class="form-group">
+          <label for="Bank">Bank:</label>
+          <select id="Bank" name="Bank" class="form-control" required>
+            <option value="27">AMEX PG</option>
+            <option value="124">AMEX MPP APP</option>
+            <option value="39">AXIS NET BANK</option>
+            <option value="37">BOB NET BANK</option>
+            <option value="50">CBI NET BANK</option>
+            <option value="22">FEDERAL NET BANK</option>
+            <option value="21">HDFC PG</option>
+            <option value="122">HDFC MPP APP</option>
+            <option value="113">IPAY WEB</option>
+            <option value="118">IPAY APP</option>
+            <option value="115">ICICI PG WEB</option>
+            <option value="120">ICICI MPP APP</option>
+            <option value="125">INDUSIND MPP APP</option>
+            <option value="44">ICICI NET BANK</option>
+            <option value="29">INDIAN BANK</option>
+            <option value="45">INDUS NETBANK</option>
+            <option value="42">KARNATAKA BANK</option>
+            <option value="46">KOTAK</option>
+            <option value="129">KOTAK RUPAY PG</option>
+            <option value="40">KARUR VYSYA</option>
+            <option value="34">PNB</option>
+            <option value="1">SBI NETBANK WEB</option>
+            <option value="67">SOUTH INDIAN</option>
+            <option value="64">SBI NEPAL</option> 
+            <option value="28">UNION NET BANK</option>
+            <option value="60">YES BANK WEB</option>
+            <!-- Add other banks here as needed -->
+          </select>
+        </div>
+
+        <!-- Transaction Type -->
+        <div class="form-group">
+          <label for="txn_type">Transaction Type:</label>
+          <select id="txn_type" name="txn_type" class="form-control" required>
+            <option value="SALE">SALE</option>
+            <option value="SOFT">SOFT</option>
+            <option value="IRDS">IRDS</option>
+            <option value="REFUND">REFUND</option>
+            <option value="OTP">OTP</option>
+            <!-- Add more transaction types here as needed -->
+          </select>
+        </div>
+
+        <!-- File Name -->
+        <div class="form-group">
+          <label for="file_name">File Name:</label>
+          <input type="text" id="file_name" name="file_name" class="form-control">
+        </div>
+
+        <!-- Reservation ID -->
+        <div class="form-group">
+          <label for="reservation_id">Reservation ID:</label>
+          <input type="text" id="reservation_id" name="reservation_id" class="form-control">
+        </div>
+
+        <!-- Submit Button -->
+        <button id="button-c" type="submit" class="btn btn-info m-2">UPLOAD TO DB</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+</body>
+</html>
